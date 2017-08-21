@@ -92,9 +92,9 @@
 }
 
 .ingredient {
-  background: white;
+  background: white !important;
 }
 
 .ingredient-flip {
-  background: pink;
+  background: pink !important;
 }

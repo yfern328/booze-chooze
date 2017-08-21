@@ -8,7 +8,8 @@ class App extends Component {
   constructor() {
   super()
   this.state = {
-    ingredients: []
+    ingredients: [],
+    cocktailGlass: []
   }
 }
 
@@ -32,35 +33,50 @@ filterNonAlcoholicIngredients = () => {
   return this.state.ingredients.filter(ingredient => ingredient.is_alcoholic === false)
 }
 
+toggleIngredient = (ingredient) => {
+  // console.log(ingredient)
+  // console.log(this.state.cocktailGlass)
+  if(this.state.cocktailGlass.includes(ingredient)) {
+    let currentGlass = this.state.cocktailGlass
+    let ingIdx = currentGlass.indexOf(ingredient)
+    currentGlass.splice(ingIdx, 1)
+
+    this.setState({
+      cocktailGlass: currentGlass
+    })
+  }
+  else {
+    this.setState({
+      cocktailGlass: [...this.state.cocktailGlass, ingredient]
+    })
+  }
+}
+
 changeBackground = (arg, event) => {
   console.log(arg)
+  this.toggleIngredient(arg)
+  // console.log(event.target.tagName)
+  // console.log(event.target.parentElement.parentElement.className)
+
+  var newClassName = {"item ingredient": "item ingredient-flip", "item ingredient-flip": "item ingredient", "middle aligned content": "middle aligned content"}
+  var grandParentClass = event.target.parentElement.parentElement.className
+  var currentClass = event.target.className
+
   if(event.target.tagName === 'IMG' ){
-    console.log(event.target.alt)
-    if(event.target.parentElement.parentElement.className === 'ingredient') {
-      event.target.parentElement.parentElement.className = 'ingredient-flip'
-    }
-    else {
-      event.target.parentElement.parentElement.className = 'ingredient'
+    event.target.parentElement.parentElement.className = newClassName[grandParentClass]
+  }
+
+  else if(event.target.tagName === 'STRONG' ){
+    event.target.parentElement.parentElement.className = newClassName[grandParentClass]
+  }
+
+  else if(event.target.tagName === 'DIV'){
+    event.target.className = newClassName[currentClass]
+    if(event.target.className === 'middle aligned content') {
+      event.target.parentElement.className = newClassName[event.target.parentElement.className]
     }
   }
-  else if(event.target.tagName === 'FIGCAPTION'){
-    console.log(event.target.innerText)
-    if(event.target.parentElement.parentElement.className === 'ingredient') {
-      event.target.parentElement.parentElement.className = 'ingredient-flip'
-    }
-    else {
-      event.target.parentElement.parentElement.className = 'ingredient'
-    }
-  }
-  else if(event.target.tagName === 'FIGURE'){
-    console.log(event.target.lastChild.innerText)
-    if(event.target.parentElement.className === 'ingredient') {
-      event.target.parentElement.className = 'ingredient-flip'
-    }
-    else {
-      event.target.parentElement.className = 'ingredient'
-    }
-  }
+
 }
 
   render() {
@@ -70,9 +86,6 @@ changeBackground = (arg, event) => {
           <div id="wrapper">
             <div id="top-nav">
               BoozeChooze
-              <Button>
-                get fucked nerd
-              </Button>
             </div>
             <div id="left-side-nav">
               <IngredientsContainer handleClick={this.changeBackground} ingredients={this.filterAlcoholicIngredients()}/>
