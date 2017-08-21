@@ -10,7 +10,8 @@ class App extends Component {
     super()
     this.state = {
       ingredients: [],
-      cocktailGlass: []
+      cocktailGlass: [],
+      currentRecipe: []
     }
   }
 
@@ -37,22 +38,25 @@ class App extends Component {
     // console.log(this.state.cocktailGlass)
     if (this.state.cocktailGlass.includes(ingredient)) {
       let currentGlass = this.state.cocktailGlass
+      let currentRecipe = this.state.currentRecipe
       let ingIdx = currentGlass.indexOf(ingredient)
       currentGlass.splice(ingIdx, 1)
+      currentRecipe.splice(ingIdx, 1)
 
-      this.setState({cocktailGlass: currentGlass})
-    } else {
       this.setState({
-        cocktailGlass: [
-          ...this.state.cocktailGlass,
-          ingredient
-        ]
-      })
+        cocktailGlass: currentGlass,
+        currentRecipe: currentRecipe
+      }, () => console.log(this.state.cocktailGlass, this.state.currentRecipe))
+    }
+    else {
+      this.setState({
+        cocktailGlass: [...this.state.cocktailGlass, ingredient],
+        currentRecipe: [...this.state.currentRecipe, {ingredient: ingredient, parts: 1}]
+      }, () => console.log(this.state.cocktailGlass, this.state.currentRecipe))
     }
   }
 
   changeBackground = (arg, event) => {
-    console.log(arg)
     this.toggleIngredient(arg)
     // console.log(event.target.tagName)
     // console.log(event.target.parentElement.parentElement.className)
@@ -91,7 +95,7 @@ class App extends Component {
           <div id="right-side-nav">
             <IngredientsContainer handleClick={this.changeBackground} ingredients={this.filterNonAlcoholicIngredients()}/>
           </div>
-          <Grid centered columns={1}>
+          <Grid id="content-wrapper" centered columns={1}>
             <CocktailGlass cocktailGlass={this.state.cocktailGlass}/>
           </Grid>
         </div>
