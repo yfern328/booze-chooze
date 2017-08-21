@@ -32,7 +32,8 @@ filterNonAlcoholicIngredients = () => {
   return this.state.ingredients.filter(ingredient => ingredient.is_alcoholic === false)
 }
 
-changeBackground = (event) => {
+changeBackground = (arg, event) => {
+  console.log(arg)
   if(event.target.tagName === 'IMG' ){
     console.log(event.target.alt)
     if(event.target.parentElement.parentElement.className === 'ingredient') {
