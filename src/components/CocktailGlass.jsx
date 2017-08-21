@@ -33,11 +33,11 @@ class CocktailGlass extends React.Component {
                   </Table.Cell>
                   <Table.Cell>
                     <Button.Group>
-                      <Button icon="minus" size='mini' onClick={this.props.decrementParts}></Button>
+                      <Button icon="minus" size='mini' onClick={() => {this.props.decrementParts(index)}}></Button>
                       <Button>
                         {this.props.currentRecipe[index].parts}
                       </Button>
-                      <Button icon="plus" size='mini' onClick={this.props.incrementParts}></Button>
+                      <Button icon="plus" size='mini' onClick={() => {this.props.incrementParts(index)}}></Button>
                     </Button.Group>
                   </Table.Cell>
                 </Table.Row>

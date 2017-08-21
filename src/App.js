@@ -15,12 +15,19 @@ class App extends Component {
     }
   }
 
-  incrementParts = () => {
-    console.log('fuck you')
+  incrementParts = (idx) => {
+    const recipe = this.state.currentRecipe
+    recipe[idx].parts++
+
+    this.forceUpdate();
+
   }
 
-  decrementParts = () => {
-    console.log('fuck me')
+  decrementParts = (idx) => {
+    const recipe = this.state.currentRecipe
+    recipe[idx].parts--
+
+    this.forceUpdate();
   }
 
   fetchIngredients = () => {
