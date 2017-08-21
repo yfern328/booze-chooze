@@ -11,7 +11,7 @@ class IngredientsContainer extends Component {
   }
 
   fetchIngredients = () => {
-    return fetch(`http://192.168.4.38:3000/api/v1/ingredients`)
+    return fetch(`http://localhost:3000/api/v1/ingredients`)
       .then(res => res.json())
       .then(data => this.setState({
         ingredients: data
@@ -22,12 +22,27 @@ class IngredientsContainer extends Component {
     this.fetchIngredients()
   }
 
+  filterAlcoholicIngredients = () => {
+    return this.state.ingredients.filter(ingredient => ingredient.is_alcoholic === true)
+  }
+
+  filterNonAlcoholicIngredients = () => {
+    return this.state.ingredients.filter(ingredient => ingredient.is_alcoholic === false)
+  }
+
   render() {
     return(
       <div>
-      {this.state.ingredients.map((ingredient, index) => {
-        return <Ingredient key={index} ingredient={ingredient} />
-      })}
+        <div className="non-alcoholic-ingredients">
+          {this.filterNonAlcoholicIngredients().map((ingredient, index) => {
+            return <Ingredient key={index} ingredient={ingredient} />
+          })}
+        </div>
+        <div className="alcoholic-ingredients">
+          {this.filterAlcoholicIngredients().map((ingredient, index) => {
+            return <Ingredient key={index} ingredient={ingredient} />
+          })}
+        </div>
       </div>
     );
   }

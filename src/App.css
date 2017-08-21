@@ -18,7 +18,71 @@
   font-size: large;
 }
 
+.non-alcoholic-ingredients {
+  /*text-align: center;
+  margin: left;*/
+}
+
+.alcoholic-ingredients {
+  /*text-align: center;
+  float: right;*/
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+#wrapper {
+  width: 100%;
+  background-color: #fff;
+}
+
+
+#top-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 100px;
+  width: 100%;
+  background-color: green;
+  text-align: center;
+}
+
+#left-side-nav {
+  position: fixed;
+  width: 250px;
+  height:100vh;
+  left: 0;
+  right: 0;
+  overflow-y: scroll;
+  background-color: red;
+  top: 100px;
+  text-align: center;
+}
+
+#right-side-nav {
+  position: fixed;
+  width: 250px;
+  height:100vh;
+  left: 700;
+  right: 0;
+  overflow-y: scroll;
+  background-color: orange;
+  top: 100px;
+  text-align: center;
+}
+
+#content-wrapper {
+  margin: 100px 0 0 500px;
+  margin-right: 250px;
+  padding: 0 30px;
+  overflow-y: scroll;
+  position: fixed;
+  left: 300;
+  right: 500;
+  top: 0;
+  height:100vh;
+  background-color: blue;
 }

@@ -1,23 +1,30 @@
 import React, { Component } from 'react';
-import CocktailsContainer from './components/CocktailsContainer'
-import IngredientsContainer from './components/IngredientsContainer'
-import logo from './logo.svg';
+import IngredientsContainer from './components/IngredientsContainer';
+/* import CocktailsContainer from './components/CocktailsContainer' */
 import './App.css';
 
 class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+        <div>
+          {/* <CocktailsContainer /> */}
+          <div id="wrapper">
+            <div id="top-nav">
+              BoozeChooze
+            </div>
+            <div id="left-side-nav">
+              <IngredientsContainer />
+            </div>
+            <div id="right-side-nav">
+              <IngredientsContainer />
+            </div>
+            <div id="content-wrapper">
+              Center
+            </div>
+          </div>
         </div>
-        <div className="App-intro">
-          <CocktailsContainer />
-          <IngredientsContainer />
-        </div>
-      </div>
+
     );
   }
 }
