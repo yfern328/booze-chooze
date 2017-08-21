@@ -57,7 +57,7 @@
   left: 0;
   right: 0;
   overflow-y: scroll;
-  background-color: red;
+  background-color: white;
   top: 100px;
   text-align: center;
 }
@@ -69,7 +69,7 @@
   left: 700;
   right: 0;
   overflow-y: scroll;
-  background-color: orange;
+  background-color: white;
   top: 100px;
   text-align: center;
 }
@@ -85,4 +85,16 @@
   top: 0;
   height:100vh;
   background-color: blue;
+}
+
+.figure-thing {
+  width: 250px;
+}
+
+.ingredient {
+  background: white;
+}
+
+.ingredient-flip {
+  background: pink;
 }

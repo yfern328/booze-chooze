@@ -7,7 +7,7 @@ const IngredientsContainer = (props) => {
       <div>
         <div className="ingredients">
           {props.ingredients.map((ingredient, index) => {
-            return <Ingredient key={index} ingredient={ingredient} />
+            return <Ingredient key={index} ingredient={ingredient} handleClick={props.handleClick} />
           })}
         </div>
       </div>

@@ -31,6 +31,36 @@ filterNonAlcoholicIngredients = () => {
   return this.state.ingredients.filter(ingredient => ingredient.is_alcoholic === false)
 }
 
+changeBackground = (event) => {
+  if(event.target.tagName === 'IMG' ){
+    console.log(event.target.alt)
+    if(event.target.parentElement.parentElement.className === 'ingredient') {
+      event.target.parentElement.parentElement.className = 'ingredient-flip'
+    }
+    else {
+      event.target.parentElement.parentElement.className = 'ingredient'
+    }
+  }
+  else if(event.target.tagName === 'FIGCAPTION'){
+    console.log(event.target.innerText)
+    if(event.target.parentElement.parentElement.className === 'ingredient') {
+      event.target.parentElement.parentElement.className = 'ingredient-flip'
+    }
+    else {
+      event.target.parentElement.parentElement.className = 'ingredient'
+    }
+  }
+  else if(event.target.tagName === 'FIGURE'){
+    console.log(event.target.lastChild.innerText)
+    if(event.target.parentElement.className === 'ingredient') {
+      event.target.parentElement.className = 'ingredient-flip'
+    }
+    else {
+      event.target.parentElement.className = 'ingredient'
+    }
+  }
+}
+
   render() {
     return (
         <div>
@@ -40,10 +70,10 @@ filterNonAlcoholicIngredients = () => {
               BoozeChooze
             </div>
             <div id="left-side-nav">
-              <IngredientsContainer ingredients={this.filterAlcoholicIngredients()}/>
+              <IngredientsContainer handleClick={this.changeBackground} ingredients={this.filterAlcoholicIngredients()}/>
             </div>
             <div id="right-side-nav">
-              <IngredientsContainer ingredients={this.filterNonAlcoholicIngredients()}/>
+              <IngredientsContainer handleClick={this.changeBackground} ingredients={this.filterNonAlcoholicIngredients()}/>
             </div>
             <div id="content-wrapper">
               Center
