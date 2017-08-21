@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import IngredientsContainer from './components/IngredientsContainer';
 /* import CocktailsContainer from './components/CocktailsContainer' */
+import { Button } from 'semantic-ui-react'
 import './App.css';
 
 class App extends Component {
@@ -68,6 +69,9 @@ changeBackground = (event) => {
           <div id="wrapper">
             <div id="top-nav">
               BoozeChooze
+              <Button>
+                get fucked nerd
+              </Button>
             </div>
             <div id="left-side-nav">
               <IngredientsContainer handleClick={this.changeBackground} ingredients={this.filterAlcoholicIngredients()}/>
