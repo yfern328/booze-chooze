@@ -15,6 +15,14 @@ class App extends Component {
     }
   }
 
+  incrementParts = () => {
+    console.log('fuck you')
+  }
+
+  decrementParts = () => {
+    console.log('fuck me')
+  }
+
   fetchIngredients = () => {
     return fetch(`http://localhost:3000/api/v1/ingredients`).then(res => res.json()).then(data => this.setState({
       ingredients: data
@@ -96,7 +104,7 @@ class App extends Component {
             <IngredientsContainer handleClick={this.changeBackground} ingredients={this.filterNonAlcoholicIngredients()}/>
           </div>
           <Grid id="content-wrapper" centered columns={1}>
-            <CocktailGlass cocktailGlass={this.state.cocktailGlass}/>
+            <CocktailGlass cocktailGlass={this.state.cocktailGlass} currentRecipe={this.state.currentRecipe} incrementParts={this.incrementParts} decrementParts={this.decrementParts}/>
           </Grid>
         </div>
       </div>
