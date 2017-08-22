@@ -139,6 +139,70 @@ class App extends Component {
     })
   }
 
+  saveCocktail = () => {
+    let data = {
+      name: this.state.currentCocktailName,
+      is_alcoholic: true,
+      image_url: 'http://blogs.kcrw.com/goodfood/wp-content/uploads/2013/12/los-angeles-magazine-cocktail-e1387501927847.jpg',
+
+    }
+    let dataToSend = JSON.stringify({
+      cocktail: data,
+      user: {id: 1}
+    })
+
+    let myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json')
+    myHeaders.append('Accept', 'application/json')
+
+    fetch(`${OUR_API_URL}/cocktails`,
+    {method: 'POST',
+    headers: myHeaders,
+    body: dataToSend
+  }
+  ).then(resp => resp.json())
+  .then((resp) => {
+    console.log(resp)
+    this.saveRecipes(resp.id)
+  })
+
+  }
+
+  saveRecipes = (cocktailId) => {
+    let data =
+    {recipe:
+      {bulk:
+        []
+      }
+    }
+
+    this.state.currentRecipe.forEach((recipe) => {
+      data.recipe.bulk.push(
+        {"cocktail_id": cocktailId,
+	        "ingredient_id": recipe.ingredient.id,
+          "parts": recipe.parts}
+      )
+    })
+
+
+    let myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json')
+    myHeaders.append('Accept', 'application/json')
+
+    let dataToSend = JSON.stringify(data)
+
+    fetch(`${OUR_API_URL}/recipes/bulkcreate`,
+      {method: 'POST',
+      headers: myHeaders,
+      body: dataToSend
+      }
+    )
+    .then(resp => resp.json())
+    .then(resp => console.log(resp))
+
+
+  }
+
 
 // DRAGGABLE STUFF
 
@@ -191,9 +255,6 @@ class App extends Component {
                 handleClick={this.toggleIngredient}
                 ingredients={this.filterNonAlcoholicIngredients()}
                 inCocktailGlass={this.inCocktailGlass}
-                onDrag={this.handleDrag}
-                onStart={this.onStart}
-                onStop={this.onStop}
                 />
               </div>
           </div>
@@ -207,6 +268,8 @@ class App extends Component {
             decrementParts={this.decrementParts}
             generateCocktailName={this.generateCocktailName}
             clearCocktailGlass={this.clearCocktailGlass}
+            currentCocktailName={this.state.currentCocktailName}
+            saveCocktail={this.saveCocktail}
 
             />
             </Grid.Row>

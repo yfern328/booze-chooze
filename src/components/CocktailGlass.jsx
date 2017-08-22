@@ -7,6 +7,8 @@ class CocktailGlass extends React.Component {
 
 
   }
+
+
   render() {
     return (
       <div>
@@ -52,6 +54,11 @@ class CocktailGlass extends React.Component {
         <Button onClick={this.props.clearCocktailGlass}>
           Empty Glass
         </Button>
+        {this.props.currentCocktailName !== 'My Cocktail' &&
+          <Button onClick={this.props.saveCocktail}>
+            Save Cocktail
+          </Button>
+        }
       </div>
     )
   }
