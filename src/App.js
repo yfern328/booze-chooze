@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import IngredientsContainer from './components/IngredientsContainer';
 import CocktailsContainer from './components/CocktailsContainer';
 import CocktailGlass from './components/CocktailGlass'
-import Draggable, {DraggableCore} from 'react-draggable';
-import {Button, Grid, Image, Message, Transition, Modal} from 'semantic-ui-react'
+// import Draggable, {DraggableCore} from 'react-draggable';
+import {Button, Grid, Image, Message, Transition, Modal, Header} from 'semantic-ui-react'
 import './App.css';
 
 const OUR_API_URL = 'http://localhost:3000/api/v1'
@@ -15,7 +15,7 @@ class App extends Component {
       ingredients: [],
       cocktailGlass: [],
       currentRecipe: [],
-      currentCocktailName: '',
+      currentCocktailName: 'My Cocktail',
       activeDrags: 0,
       deltaPosition: {
         x: 0, y: 0
@@ -104,12 +104,10 @@ class App extends Component {
       data[name] = item.parts
     })
     let dataToSend = JSON.stringify({recipe: data});
-    console.log(data)
 
     let myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json')
     myHeaders.append('Accept', 'application/json')
-    console.log(myHeaders.get('Content-Type'))
 
     fetch(`${OUR_API_URL}/cocktails/generate`,
     {method: 'POST',
@@ -124,14 +122,15 @@ class App extends Component {
   updateCocktailName = (resp) => {
     this.setState({
       open: true,
-      currentCocktailName: resp
+      currentCocktailName: resp.name
     })
   }
 
   clearCocktailGlass = () => {
     this.setState( {
       cocktailGlass: [],
-      currentRecipe: []
+      currentRecipe: [],
+      currentCocktailName: 'My Cocktail'
     })
   }
 
@@ -173,7 +172,7 @@ class App extends Component {
         <Transition animation={'drop'} duration={500} visible={this.state.open}>
           <Modal open={this.state.open} size={'mini'} onClose={this.closeModal} closeIcon={true} dimmer={'blurring'}>
             <Modal.Header><center>Your Cocktail!</center></Modal.Header>
-            <Modal.Content><center>{this.state.currentCocktailName.name}</center></Modal.Content>
+            <Modal.Content><center>{this.state.currentCocktailName}</center></Modal.Content>
           </Modal>
         </Transition>
         <div id="wrapper">
@@ -198,6 +197,8 @@ class App extends Component {
               />
           </div>
           <Grid id="content-wrapper" centered columns={1}>
+          <Header as='h1'>{this.state.currentCocktailName}</Header>
+
           {this.state.cocktailGlass.length > 0 &&
             <CocktailGlass cocktailGlass={this.state.cocktailGlass} currentRecipe={this.state.currentRecipe}
             incrementParts={this.incrementParts}

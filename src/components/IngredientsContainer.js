@@ -1,28 +1,50 @@
 import React from 'react';
 import Ingredient from './Ingredient';
-import { Item } from 'semantic-ui-react';
+import { Item, Input } from 'semantic-ui-react';
 
 
-const IngredientsContainer = (props) => {
-  return(
-    <Item.Group className="ingredients" divided>
-      {props.ingredients.map((ingredient, index) => {
-        return (
+class IngredientsContainer extends React.Component {
 
-          <Ingredient
-            key={index}
-            ingredient={ingredient}
-            handleClick={props.handleClick}
-            inCocktailGlass={() => props.inCocktailGlass(ingredient)}
-            onDrag={props.handleDrag}
-            onStart={props.onStart}
-            onStop={props.onStop}
-          />
+  constructor () {
+    super ()
+    this.state = {
+      currentFilter: ''
+    }
+  }
 
-      )
-      })}
-    </Item.Group>
-  );
-};
+  handleChange = (event) => {
+    console.log(event.target.value)
+    this.setState({
+      currentFilter: event.target.value
+    })
+  }
+
+  render() {
+    return(
+      <div>
+      <Input icon='search' placeholder='Filter...' value={this.state.currentFilter} onChange={this.handleChange} />
+        <Item.Group className="ingredients" divided>
+          {this.props.ingredients.map((ingredient, index) => {
+            return (
+
+              <Ingredient
+                key={index}
+                ingredient={ingredient}
+                handleClick={this.props.handleClick}
+                inCocktailGlass={() => this.props.inCocktailGlass(ingredient)}
+                onDrag={this.props.handleDrag}
+                onStart={this.props.onStart}
+                onStop={this.props.onStop}
+              />
+
+          )
+          })}
+        </Item.Group>
+
+    </div>
+    );
+  };
+
+} // end of class
 
 export default IngredientsContainer;
