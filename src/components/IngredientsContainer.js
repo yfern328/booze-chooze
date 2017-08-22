@@ -1,6 +1,6 @@
 import React from 'react';
 import Ingredient from './Ingredient';
-import { Item, Input } from 'semantic-ui-react';
+import { Item, Input, Icon } from 'semantic-ui-react';
 
 
 class IngredientsContainer extends React.Component {
@@ -13,19 +13,40 @@ class IngredientsContainer extends React.Component {
   }
 
   handleChange = (event) => {
-    console.log(event.target.value)
     this.setState({
       currentFilter: event.target.value
     })
   }
 
+  clearFilter = () => {
+    this.setState({
+      currentFilter: ''
+    })
+  }
+
   render() {
+
+    let iconCls = {
+      false: 'remove circle',
+      true: 'search'
+    }
+
     return(
       <div>
-      <Input icon='search' placeholder='Filter...' value={this.state.currentFilter} onChange={this.handleChange} />
-        <Item.Group className="ingredients" divided>
+      <Input
+        placeholder='Filter ingredients...'
+        value={this.state.currentFilter}
+        onChange={this.handleChange}
+        icon={{name: iconCls[(this.state.currentFilter.length === 0)], link:true, onClick: this.clearFilter}}
+        />
+
+      <Item.Group className="ingredients" divided>
+
           {this.props.ingredients.map((ingredient, index) => {
-            return (
+
+
+              if(ingredient.name.toLowerCase().includes(this.state.currentFilter.toLowerCase())) {
+                return (
 
               <Ingredient
                 key={index}
@@ -36,8 +57,11 @@ class IngredientsContainer extends React.Component {
                 onStart={this.props.onStart}
                 onStop={this.props.onStop}
               />
+              )
+            }
 
-          )
+
+
           })}
         </Item.Group>
 

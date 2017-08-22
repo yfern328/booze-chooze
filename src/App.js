@@ -74,7 +74,6 @@ class App extends Component {
   toggleIngredient = (ingredient) => {
     // console.log(ingredient)
     // console.log(this.state.cocktailGlass)
-    console.log(this.state.visible)
     if (this.state.cocktailGlass.includes(ingredient)) {
       let currentGlass = this.state.cocktailGlass
       let currentRecipe = this.state.currentRecipe
