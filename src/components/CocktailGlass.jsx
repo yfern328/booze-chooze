@@ -48,6 +48,9 @@ class CocktailGlass extends React.Component {
         <Button onClick={this.props.generateCocktailName}>
           Generate Cocktail Name
         </Button>
+        <Button onClick={this.props.clearCocktailGlass}>
+          Empty Glass
+        </Button>
       </div>
     )
   }

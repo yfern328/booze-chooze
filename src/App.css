@@ -44,38 +44,39 @@
   left: 0;
   right: 0;
   top: 0;
-  height: 100px;
+  height: 128px;
   width: 100%;
-  background-color: white;
+  background-color: #9CDEF9;
+  /*#A8E7FF;*/
   text-align: center;
 }
 
 #left-side-nav {
   position: fixed;
   width: 250px;
-  height:90vh;
+  height:70vh;
   left: 0;
   right: 0;
   overflow-y: scroll;
   background-color: white;
-  top: 60px;
+  top: 128px;
   text-align: center;
 }
 
 #right-side-nav {
   position: fixed;
   width: 250px;
-  height:90vh;
+  height:70vh;
   left: 700;
   right: 0;
   overflow-y: scroll;
   background-color: white;
-  top: 60px;
+  top: 128px;
   text-align: center;
 }
 
 #content-wrapper {
-  margin: 60px 0 0 250px;
+  margin: 128px 0 0 250px;
   margin-right: 250px;
   padding: 0 30px;
   overflow-y: scroll;
@@ -83,7 +84,7 @@
   left: 0;
   right: 0;
   top: 0;
-  height:90vh;
+  height:70vh;
   background-color: white;
   padding-top: 30px;
   padding-bottom: 30px;
@@ -98,5 +99,5 @@
 }
 
 .ingredient-flip {
-  background: pink !important;
+  background: #FFD6E2 !important;
 }

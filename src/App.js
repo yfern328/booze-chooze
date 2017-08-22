@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import IngredientsContainer from './components/IngredientsContainer';
 import CocktailsContainer from './components/CocktailsContainer';
 import CocktailGlass from './components/CocktailGlass'
-import {Button, Grid} from 'semantic-ui-react'
+import {Button, Grid, Image, Message} from 'semantic-ui-react'
 import './App.css';
 
 const OUR_API_URL = 'http://localhost:3000/api/v1'
@@ -109,6 +109,13 @@ class App extends Component {
     console.log(resp)
   }
 
+  clearCocktailGlass = () => {
+    this.setState( {
+      cocktailGlass: [],
+      currentRecipe: []
+    })
+  }
+
 
 
   changeBackground = (arg, event) => {
@@ -144,7 +151,7 @@ class App extends Component {
         {/* <CocktailsContainer /> */}
         <div id="wrapper">
           <div id="top-nav">
-            BoozeChooze
+            <Image src={'./booze-chooze-logo.png'} size='medium' centered />
           </div>
           <div id="left-side-nav">
             <IngredientsContainer
@@ -160,14 +167,31 @@ class App extends Component {
               inCocktailGlass={this.inCocktailGlass}
               />
           </div>
+          {this.state.cocktailGlass.length > 0 &&
           <Grid id="content-wrapper" centered columns={1}>
             <CocktailGlass cocktailGlass={this.state.cocktailGlass} currentRecipe={this.state.currentRecipe}
             incrementParts={this.incrementParts}
             decrementParts={this.decrementParts}
             generateCocktailName={this.generateCocktailName}
+            clearCocktailGlass={this.clearCocktailGlass}
 
             />
           </Grid>
+        }
+        {this.state.cocktailGlass.length === 0 &&
+          <Grid id="content-wrapper" centered columns={1}>
+            <Grid.Row centered>
+
+            <Message>
+              <Message.Header>Get your drink on</Message.Header>
+              <Message.List>
+                <Message.Item>Click an ingredient to get started!</Message.Item>
+                <Message.Item>Alcohol is on the left.</Message.Item>
+              </Message.List>
+            </Message>
+          </Grid.Row>
+          </Grid>
+        }
         </div>
       </div>
 
