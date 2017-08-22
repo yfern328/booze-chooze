@@ -26,14 +26,17 @@ class App extends Component {
   decrementParts = (idx) => {
     const recipe = this.state.currentRecipe
     recipe[idx].parts--
-
-    this.forceUpdate();
+    if(recipe[idx].parts === 0) {
+      this.toggleIngredient(recipe[idx].ingredient)
+    } else {
+      this.forceUpdate();
+    }
   }
 
   fetchIngredients = () => {
     return fetch(`http://localhost:3000/api/v1/ingredients`).then(res => res.json()).then(data => this.setState({
       ingredients: data
-    }, () => console.log(data)))
+    } ))
   }
 
   componentDidMount() {
@@ -46,6 +49,10 @@ class App extends Component {
 
   filterNonAlcoholicIngredients = () => {
     return this.state.ingredients.filter(ingredient => ingredient.is_alcoholic === false)
+  }
+
+  inCocktailGlass = (ingredient) => {
+    return this.state.cocktailGlass.includes(ingredient)
   }
 
   toggleIngredient = (ingredient) => {
@@ -61,13 +68,13 @@ class App extends Component {
       this.setState({
         cocktailGlass: currentGlass,
         currentRecipe: currentRecipe
-      }, () => console.log(this.state.cocktailGlass, this.state.currentRecipe))
+      }, () => console.log('Removed ingredient ', ingredient.name))
     }
     else {
       this.setState({
         cocktailGlass: [...this.state.cocktailGlass, ingredient],
         currentRecipe: [...this.state.currentRecipe, {ingredient: ingredient, parts: 1}]
-      }, () => console.log(this.state.cocktailGlass, this.state.currentRecipe))
+      }, () => console.log('Added ingredient ', ingredient.name))
     }
   }
 
@@ -76,24 +83,26 @@ class App extends Component {
     // console.log(event.target.tagName)
     // console.log(event.target.parentElement.parentElement.className)
 
-    var newClassName = {
-      "item ingredient": "item ingredient-flip",
-      "item ingredient-flip": "item ingredient",
-      "middle aligned content": "middle aligned content"
-    }
-    var grandParentClass = event.target.parentElement.parentElement.className
-    var currentClass = event.target.className
+    // var newClassName = {
+    //   "item ingredient": "item ingredient-flip",
+    //   "item ingredient-flip": "item ingredient",
+    //   "middle aligned content": "middle aligned content"
+    // }
+    //
+    // var grandParentClass = event.target.parentElement.parentElement.className
+    // var currentClass = event.target.className
+    //
+    // if (event.target.tagName === 'IMG') {
+    //   event.target.parentElement.parentElement.className = newClassName[grandParentClass]
+    // } else if (event.target.tagName === 'STRONG') {
+    //   event.target.parentElement.parentElement.className = newClassName[grandParentClass]
+    // } else if (event.target.tagName === 'DIV') {
+    //   event.target.className = newClassName[currentClass]
+    //   if (event.target.className === 'middle aligned content') {
+    //     event.target.parentElement.className = newClassName[event.target.parentElement.className]
+    //   }
+    // }
 
-    if (event.target.tagName === 'IMG') {
-      event.target.parentElement.parentElement.className = newClassName[grandParentClass]
-    } else if (event.target.tagName === 'STRONG') {
-      event.target.parentElement.parentElement.className = newClassName[grandParentClass]
-    } else if (event.target.tagName === 'DIV') {
-      event.target.className = newClassName[currentClass]
-      if (event.target.className === 'middle aligned content') {
-        event.target.parentElement.className = newClassName[event.target.parentElement.className]
-      }
-    }
   }
 
   render() {
@@ -105,10 +114,18 @@ class App extends Component {
             BoozeChooze
           </div>
           <div id="left-side-nav">
-            <IngredientsContainer handleClick={this.changeBackground} ingredients={this.filterAlcoholicIngredients()}/>
+            <IngredientsContainer
+              handleClick={this.toggleIngredient}
+              ingredients={this.filterAlcoholicIngredients()}
+              inCocktailGlass={this.inCocktailGlass}
+              />
           </div>
           <div id="right-side-nav">
-            <IngredientsContainer handleClick={this.changeBackground} ingredients={this.filterNonAlcoholicIngredients()}/>
+            <IngredientsContainer
+              handleClick={this.toggleIngredient}
+              ingredients={this.filterNonAlcoholicIngredients()}
+              inCocktailGlass={this.inCocktailGlass}
+              />
           </div>
           <Grid id="content-wrapper" centered columns={1}>
             <CocktailGlass cocktailGlass={this.state.cocktailGlass} currentRecipe={this.state.currentRecipe} incrementParts={this.incrementParts} decrementParts={this.decrementParts}/>

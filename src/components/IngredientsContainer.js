@@ -6,7 +6,11 @@ const IngredientsContainer = (props) => {
   return(
     <Item.Group className="ingredients">
       {props.ingredients.map((ingredient, index) => {
-        return <Ingredient key={index} ingredient={ingredient} handleClick={props.handleClick} />
+        return <Ingredient  key={index}
+                            ingredient={ingredient}
+                            handleClick={props.handleClick} 
+                            inCocktailGlass={() => props.inCocktailGlass(ingredient)}
+          />
       })}
     </Item.Group>
   );
