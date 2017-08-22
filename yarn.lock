@@ -5055,6 +5055,13 @@ react-dom@^15.6.1:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
+react-draggable@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-draggable/-/react-draggable-3.0.1.tgz#523aa1a9f4c9f03f3f42c20eb71d9f62aa96460e"
+  dependencies:
+    classnames "^2.2.5"
+    prop-types "^15.5.10"
+
 react-error-overlay@^1.0.10:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-1.0.10.tgz#da8cd1eafac41afdca2a33792b23694ef6c528f1"

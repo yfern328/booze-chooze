@@ -1,5 +1,4 @@
 import React from 'react';
-import Ingredient from './Ingredient'
 import {Header, Image, Table, Button} from 'semantic-ui-react';
 
 class CocktailGlass extends React.Component {

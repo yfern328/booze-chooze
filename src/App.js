@@ -3,6 +3,7 @@ import IngredientsContainer from './components/IngredientsContainer';
 import CocktailsContainer from './components/CocktailsContainer';
 import CocktailGlass from './components/CocktailGlass'
 import {Button, Grid, Image, Message} from 'semantic-ui-react'
+import Draggable, {DraggableCore} from 'react-draggable';
 import './App.css';
 
 const OUR_API_URL = 'http://localhost:3000/api/v1'
@@ -14,7 +15,11 @@ class App extends Component {
       ingredients: [],
       cocktailGlass: [],
       currentRecipe: [],
-      currentCocktailName: ''
+      currentCocktailName: '',
+      activeDrags: 0,
+      deltaPosition: {
+        x: 0, y: 0
+      },
     }
   }
 
@@ -117,33 +122,29 @@ class App extends Component {
   }
 
 
+// DRAGGABLE STUFF
 
-  changeBackground = (arg, event) => {
-    this.toggleIngredient(arg)
-    // console.log(event.target.tagName)
-    // console.log(event.target.parentElement.parentElement.className)
-
-    // var newClassName = {
-    //   "item ingredient": "item ingredient-flip",
-    //   "item ingredient-flip": "item ingredient",
-    //   "middle aligned content": "middle aligned content"
-    // }
-    //
-    // var grandParentClass = event.target.parentElement.parentElement.className
-    // var currentClass = event.target.className
-    //
-    // if (event.target.tagName === 'IMG') {
-    //   event.target.parentElement.parentElement.className = newClassName[grandParentClass]
-    // } else if (event.target.tagName === 'STRONG') {
-    //   event.target.parentElement.parentElement.className = newClassName[grandParentClass]
-    // } else if (event.target.tagName === 'DIV') {
-    //   event.target.className = newClassName[currentClass]
-    //   if (event.target.className === 'middle aligned content') {
-    //     event.target.parentElement.className = newClassName[event.target.parentElement.className]
-    //   }
-    // }
-
+  handleDrag = (e, ui) => {
+    const {x, y} = this.state.deltaPosition;
+    this.setState({
+      deltaPosition: {
+        x: x + ui.deltaX,
+        y: y + ui.deltaY,
+      }
+    });
   }
+
+  onStart = () => {
+    console.log('drag started')
+    this.setState({activeDrags: ++this.state.activeDrags});
+  }
+
+  onStop = () =>  {
+    console.log('drag stopped')
+    this.setState({activeDrags: --this.state.activeDrags});
+  }
+
+
 
   render() {
     return (
@@ -165,6 +166,9 @@ class App extends Component {
               handleClick={this.toggleIngredient}
               ingredients={this.filterNonAlcoholicIngredients()}
               inCocktailGlass={this.inCocktailGlass}
+              onDrag={this.handleDrag}
+              onStart={this.onStart}
+              onStop={this.onStop}
               />
           </div>
           {this.state.cocktailGlass.length > 0 &&
