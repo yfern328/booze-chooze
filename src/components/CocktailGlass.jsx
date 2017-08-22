@@ -45,8 +45,8 @@ class CocktailGlass extends React.Component {
             })}
           </Table.Body>
         </Table>
-        <Button>
-          Generate Cocktail
+        <Button onClick={this.props.generateCocktailName}>
+          Generate Cocktail Name
         </Button>
       </div>
     )

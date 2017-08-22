@@ -5,13 +5,16 @@ import CocktailGlass from './components/CocktailGlass'
 import {Button, Grid} from 'semantic-ui-react'
 import './App.css';
 
+const OUR_API_URL = 'http://localhost:3000/api/v1'
+
 class App extends Component {
   constructor() {
     super()
     this.state = {
       ingredients: [],
       cocktailGlass: [],
-      currentRecipe: []
+      currentRecipe: [],
+      currentCocktailName: ''
     }
   }
 
@@ -34,7 +37,7 @@ class App extends Component {
   }
 
   fetchIngredients = () => {
-    return fetch(`http://localhost:3000/api/v1/ingredients`).then(res => res.json()).then(data => this.setState({
+    return fetch(`${OUR_API_URL}/ingredients`).then(res => res.json()).then(data => this.setState({
       ingredients: data
     } ))
   }
@@ -77,6 +80,36 @@ class App extends Component {
       }, () => console.log('Added ingredient ', ingredient.name))
     }
   }
+
+  generateCocktailName = () => {
+    let data = {}
+    this.state.currentRecipe.forEach((item) => {
+      let name = item.ingredient.name
+      data[name] = item.parts
+    })
+    let dataToSend = JSON.stringify({recipe: data});
+    console.log(data)
+
+    let myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json')
+    myHeaders.append('Accept', 'application/json')
+    console.log(myHeaders.get('Content-Type'))
+
+    fetch(`${OUR_API_URL}/cocktails/generate`,
+    {method: 'POST',
+    headers: myHeaders,
+    body: dataToSend
+  }
+  ).then(resp => resp.json())
+  .then(resp => this.updateCocktailName(resp))
+
+  }
+
+  updateCocktailName = (resp) => {
+    console.log(resp)
+  }
+
+
 
   changeBackground = (arg, event) => {
     this.toggleIngredient(arg)
@@ -128,7 +161,12 @@ class App extends Component {
               />
           </div>
           <Grid id="content-wrapper" centered columns={1}>
-            <CocktailGlass cocktailGlass={this.state.cocktailGlass} currentRecipe={this.state.currentRecipe} incrementParts={this.incrementParts} decrementParts={this.decrementParts}/>
+            <CocktailGlass cocktailGlass={this.state.cocktailGlass} currentRecipe={this.state.currentRecipe}
+            incrementParts={this.incrementParts}
+            decrementParts={this.decrementParts}
+            generateCocktailName={this.generateCocktailName}
+
+            />
           </Grid>
         </div>
       </div>

@@ -8,7 +8,7 @@ const Ingredient = (props) => {
   }
 
   return(
-    <Item className={cocktailClass[props.inCocktailGlass()]} onClick={(event) => {props.handleClick(props.ingredient, event)}}>
+    <Item className={cocktailClass[props.inCocktailGlass()]} onClick={(event) => {props.handleClick(props.ingredient)}}>
       <Item.Image size='tiny' src={props.ingredient.image_url} />
       <Item.Content verticalAlign='middle'><strong>{props.ingredient.name}</strong></Item.Content>
     </Item>
