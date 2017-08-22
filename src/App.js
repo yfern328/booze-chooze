@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import IngredientsContainer from './components/IngredientsContainer';
 import CocktailsContainer from './components/CocktailsContainer';
 import CocktailGlass from './components/CocktailGlass'
-import {Button, Grid, Image, Message} from 'semantic-ui-react'
 import Draggable, {DraggableCore} from 'react-draggable';
+import {Button, Grid, Image, Message, Transition, Modal} from 'semantic-ui-react'
 import './App.css';
 
 const OUR_API_URL = 'http://localhost:3000/api/v1'
@@ -20,6 +20,8 @@ class App extends Component {
       deltaPosition: {
         x: 0, y: 0
       },
+      visible: true,
+      open: false
     }
   }
 
@@ -27,7 +29,10 @@ class App extends Component {
     const recipe = this.state.currentRecipe
     recipe[idx].parts++
 
-    this.forceUpdate();
+    this.setState({
+      currentRecipe: this.state.currentRecipe,
+      visible: !this.state.visible
+    })
 
   }
 
@@ -37,7 +42,10 @@ class App extends Component {
     if(recipe[idx].parts === 0) {
       this.toggleIngredient(recipe[idx].ingredient)
     } else {
-      this.forceUpdate();
+      this.setState({
+        currentRecipe: this.state.currentRecipe,
+        visible: !this.state.visible
+      })
     }
   }
 
@@ -66,6 +74,7 @@ class App extends Component {
   toggleIngredient = (ingredient) => {
     // console.log(ingredient)
     // console.log(this.state.cocktailGlass)
+    console.log(this.state.visible)
     if (this.state.cocktailGlass.includes(ingredient)) {
       let currentGlass = this.state.cocktailGlass
       let currentRecipe = this.state.currentRecipe
@@ -75,13 +84,15 @@ class App extends Component {
 
       this.setState({
         cocktailGlass: currentGlass,
-        currentRecipe: currentRecipe
+        currentRecipe: currentRecipe,
+        visible: !this.state.visible
       }, () => console.log('Removed ingredient ', ingredient.name))
     }
     else {
       this.setState({
         cocktailGlass: [...this.state.cocktailGlass, ingredient],
-        currentRecipe: [...this.state.currentRecipe, {ingredient: ingredient, parts: 1}]
+        currentRecipe: [...this.state.currentRecipe, {ingredient: ingredient, parts: 1}],
+        visible: !this.state.visible
       }, () => console.log('Added ingredient ', ingredient.name))
     }
   }
@@ -111,13 +122,22 @@ class App extends Component {
   }
 
   updateCocktailName = (resp) => {
-    console.log(resp)
+    this.setState({
+      open: true,
+      currentCocktailName: resp
+    })
   }
 
   clearCocktailGlass = () => {
     this.setState( {
       cocktailGlass: [],
       currentRecipe: []
+    })
+  }
+
+  closeModal = () => {
+    this.setState({
+      open: false
     })
   }
 
@@ -150,6 +170,12 @@ class App extends Component {
     return (
       <div>
         {/* <CocktailsContainer /> */}
+        <Transition animation={'drop'} duration={500} visible={this.state.open}>
+          <Modal open={this.state.open} size={'mini'} onClose={this.closeModal} closeIcon={true} dimmer={'blurring'}>
+            <Modal.Header><center>Your Cocktail!</center></Modal.Header>
+            <Modal.Content><center>{this.state.currentCocktailName.name}</center></Modal.Content>
+          </Modal>
+        </Transition>
         <div id="wrapper">
           <div id="top-nav">
             <Image src={'./booze-chooze-logo.png'} size='medium' centered />
@@ -171,8 +197,8 @@ class App extends Component {
               onStop={this.onStop}
               />
           </div>
-          {this.state.cocktailGlass.length > 0 &&
           <Grid id="content-wrapper" centered columns={1}>
+          {this.state.cocktailGlass.length > 0 &&
             <CocktailGlass cocktailGlass={this.state.cocktailGlass} currentRecipe={this.state.currentRecipe}
             incrementParts={this.incrementParts}
             decrementParts={this.decrementParts}
@@ -180,22 +206,24 @@ class App extends Component {
             clearCocktailGlass={this.clearCocktailGlass}
 
             />
-          </Grid>
         }
         {this.state.cocktailGlass.length === 0 &&
-          <Grid id="content-wrapper" centered columns={1}>
             <Grid.Row centered>
-
-            <Message>
-              <Message.Header>Get your drink on</Message.Header>
-              <Message.List>
-                <Message.Item>Click an ingredient to get started!</Message.Item>
-                <Message.Item>Alcohol is on the left.</Message.Item>
-              </Message.List>
-            </Message>
-          </Grid.Row>
-          </Grid>
+              <Message>
+                <Message.Header>Get your drink on</Message.Header>
+                <Message.List>
+                  <Message.Item>Click an ingredient to get started!</Message.Item>
+                  <Message.Item>Alcohol is on the left.</Message.Item>
+                </Message.List>
+              </Message>
+            </Grid.Row>
         }
+        <Transition animation={'jiggle'} duration={350} visible={this.state.visible}>
+          <Image centered width={'150px'} height={'150px'} src='./shaker.jpg'/>
+        </Transition>
+        </Grid>
+
+
         </div>
       </div>
 
