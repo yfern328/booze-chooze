@@ -34,7 +34,7 @@ class IngredientsContainer extends React.Component {
     return(
       <div>
       <Input
-        placeholder='Filter ingredients...'
+        placeholder='Filter ingredients'
         value={this.state.currentFilter}
         onChange={this.handleChange}
         icon={{name: iconCls[(this.state.currentFilter.length === 0)], link:true, onClick: this.clearFilter}}

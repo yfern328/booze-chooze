@@ -186,19 +186,22 @@ class App extends Component {
               />
           </div>
           <div id="right-side-nav">
-            <IngredientsContainer
-              handleClick={this.toggleIngredient}
-              ingredients={this.filterNonAlcoholicIngredients()}
-              inCocktailGlass={this.inCocktailGlass}
-              onDrag={this.handleDrag}
-              onStart={this.onStart}
-              onStop={this.onStop}
-              />
+            <div>
+              <IngredientsContainer
+                handleClick={this.toggleIngredient}
+                ingredients={this.filterNonAlcoholicIngredients()}
+                inCocktailGlass={this.inCocktailGlass}
+                onDrag={this.handleDrag}
+                onStart={this.onStart}
+                onStop={this.onStop}
+                />
+              </div>
           </div>
           <Grid id="content-wrapper" centered columns={1}>
           <Header as='h1'>{this.state.currentCocktailName}</Header>
 
           {this.state.cocktailGlass.length > 0 &&
+            <Grid.Row centered>
             <CocktailGlass cocktailGlass={this.state.cocktailGlass} currentRecipe={this.state.currentRecipe}
             incrementParts={this.incrementParts}
             decrementParts={this.decrementParts}
@@ -206,6 +209,7 @@ class App extends Component {
             clearCocktailGlass={this.clearCocktailGlass}
 
             />
+            </Grid.Row>
         }
         {this.state.cocktailGlass.length === 0 &&
             <Grid.Row centered>

@@ -44,7 +44,7 @@
   left: 0;
   right: 0;
   top: 0;
-  height: 128px;
+  height: 65px;
   width: 100%;
   background-color: #9CDEF9;
   /*#A8E7FF;*/
@@ -54,40 +54,63 @@
 #left-side-nav {
   position: fixed;
   width: 250px;
-  height:70vh;
+  height:90vh;
   left: 0;
   right: 0;
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color: white;
-  top: 128px;
+  top: 65px;
   text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#right-side-nav > div {
+  overflow: auto;
+  transform: scaleX(-1);
 }
 
 #right-side-nav {
   position: fixed;
   width: 250px;
-  height:70vh;
+  height:90vh;
   left: 700;
   right: 0;
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color: white;
-  top: 128px;
+  top: 65px;
   text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /*direction: rtl;*/
+  transform: scaleX(-1);
 }
 
 #content-wrapper {
-  margin: 128px 0 0 250px;
+  margin: 160px 0 0 250px;
   margin-right: 250px;
   padding: 0 30px;
-  overflow-y: scroll;
+  overflow-y: auto;
   position: fixed;
   left: 0;
   right: 0;
   top: 0;
-  height:70vh;
+  height: 90vh;
   background-color: white;
   padding-top: 30px;
   padding-bottom: 30px;
+}
+
+#right-side-nav::-webkit-scrollbar {
+  /*direction: rtl;*/
+}
+
+#content-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.shaker {
+  padding-top: 10px;
 }
 
 .figure-thing {

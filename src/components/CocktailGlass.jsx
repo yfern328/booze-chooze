@@ -10,6 +10,7 @@ class CocktailGlass extends React.Component {
   render() {
     return (
       <div>
+        <center>
         <Table basic='very' celled collapsing>
 
           <Table.Header>
@@ -44,6 +45,7 @@ class CocktailGlass extends React.Component {
             })}
           </Table.Body>
         </Table>
+        </center>
         <Button onClick={this.props.generateCocktailName}>
           Generate Cocktail Name
         </Button>
