@@ -47,7 +47,7 @@ class Cocktail extends React.Component {
         </Card.Content>
         <Card.Content extra>
 
-          <Button onClick={this.deleteCocktail}>
+          <Button onClick={this.deleteCocktail} color='red'>
             <Icon name='remove circle outline' size='large' />
              Delete
           </Button>
