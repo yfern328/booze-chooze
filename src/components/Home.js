@@ -21,12 +21,18 @@ class Home extends Component {
       currentRecipe: [],
       currentCocktailName: 'My Cocktail',
       visible: true,
-      open: false
+      open: false,
+      secret: false
     }
   }
 
   componentDidMount() {
     this.fetchIngredients()
+    window.addEventListener('dblclick', this.secretFunction)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('dblclick', this.secretFunction)
   }
 
   incrementParts = (idx) => {
@@ -202,14 +208,40 @@ class Home extends Component {
 
   }
 
+
+  secretFunction = () => {
+    this.closeModal()
+    let audio = document.getElementById('audio')
+    if(!this.state.secret){
+      document.body.style.animation = 'App-logo-spin infinite 1s linear'
+      document.body.style.animationPlayState = 'running'
+      this.setState({
+        secret: true
+      }, () => audio.play())
+    } else {
+      document.body.style.animation = ''
+      document.body.style.animationPlayState = 'paused'
+      this.setState({
+        secret: false
+      }, () => audio.pause())
+    }
+  }
+
+
+
+
+
   render() {
     return (
       <div>
-        {/* <CocktailsContainer /> */}
+        <audio id="audio" src={"./yakety-sax.ogg"}></audio>
         <Transition animation={'drop'} duration={500} visible={this.state.open}>
           <Modal open={this.state.open} size={'mini'} onClose={this.closeModal} closeIcon={true} dimmer={'blurring'}>
             <Modal.Header><center>Your Cocktail!</center></Modal.Header>
             <Modal.Content><center>{this.state.currentCocktailName}</center></Modal.Content>
+            {(this.state.cocktailGlass[0] !== undefined && this.state.cocktailGlass[0].name === 'Egg yolk') &&
+              <Modal.Content><center><Button onClick={this.secretFunction}>Click to go CRAZY</Button></center></Modal.Content>
+            }
           </Modal>
         </Transition>
         <div id="wrapper">
@@ -232,30 +264,27 @@ class Home extends Component {
                 />
               </div>
           </div>
-          <Grid id="content-wrapper">
-            <div className="assembly-line">
 
-            <center>
-              <div className="cocktail-header-name">
-                <h1>{this.state.currentCocktailName}</h1>
-              </div>
-            </center>
+          <div id="content-wrapper">
+
+          <Grid divided='vertically'>
+
+          <Grid.Row centered columns={1}>
+              <Header as='h1'>{this.state.currentCocktailName}</Header>
+          </Grid.Row>
+
+          <Grid.Row className="cocktail-grid" centered columns={2}>
           {this.state.cocktailGlass.length > 0 &&
-            <Grid.Row className="cocktail-grid" centered>
-            <CocktailGlass cocktailGlass={this.state.cocktailGlass} currentRecipe={this.state.currentRecipe}
-            incrementParts={this.incrementParts}
-            decrementParts={this.decrementParts}
-            generateCocktailName={this.generateCocktailName}
-            clearCocktailGlass={this.clearCocktailGlass}
-            currentCocktailName={this.state.currentCocktailName}
-            saveCocktail={this.saveCocktail}
+              <Grid.Column>
+                <CocktailGlass cocktailGlass={this.state.cocktailGlass} currentRecipe={this.state.currentRecipe}
+                incrementParts={this.incrementParts}
+                decrementParts={this.decrementParts}
+                />
+              </Grid.Column>
+          }
 
-            />
-            </Grid.Row>
-        }
-        {this.state.cocktailGlass.length === 0 &&
-            <Grid.Row className="cocktail-grid" centered>
-
+          {this.state.cocktailGlass.length === 0 &&
+              <Grid.Column>
               <Message>
                 <Message.Header>Get your drink on</Message.Header>
                 <Message.List>
@@ -263,18 +292,38 @@ class Home extends Component {
                   <Message.Item>Alcohol is on the left.</Message.Item>
                 </Message.List>
               </Message>
+              </Grid.Column>
+          }
 
-            </Grid.Row>
+          <Grid.Column>
+            <div className='shaker'>
+              <Transition animation={'jiggle'} duration={350} visible={this.state.visible}>
+                <Image centered width={'150px'} height={'150px'} src='./shaker.jpg'/>
+              </Transition>
+            </div>
+          </Grid.Column>
+        </Grid.Row>
+
+        <Grid.Row centered columns={1}>
+          <div className="cocktail-buttons">
+            <Button onClick={this.generateCocktailName}>
+              Generate Cocktail Name
+            </Button>
+            <Button onClick={this.clearCocktailGlass}>
+              Empty Glass
+            </Button>
+            {this.state.currentCocktailName !== 'My Cocktail' &&
+              <Button onClick={this.saveCocktail}>
+                Save Cocktail
+              </Button>
+            }
+          </div>
+        </Grid.Row>
         }
+      </Grid>
 
-
-
-        <Transition animation={'jiggle'} duration={350} visible={this.state.visible}>
-          <Image centered width={'150px'} height={'150px'} src='./shaker.jpg'/>
-        </Transition>
 
       </div>
-      </Grid>
 
         </div>
       </div>

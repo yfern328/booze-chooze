@@ -61,6 +61,8 @@ class IngredientsContainer extends React.Component {
                 onStop={this.props.onStop}
               />
               )
+            } else {
+              return null
             }
 
 

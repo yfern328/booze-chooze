@@ -2,18 +2,11 @@ import React from 'react';
 import {Header, Image, Table, Button, Message} from 'semantic-ui-react';
 
 class CocktailGlass extends React.Component {
-  constructor(props) {
-    super(props)
-
-
-  }
-
 
   render() {
     return (
       <div>
-        <center>
-        <div className="card-shit">
+        <div className="cocktail-card">
         <Message>
         <Table basic='very' celled collapsing>
 
@@ -51,20 +44,7 @@ class CocktailGlass extends React.Component {
         </Table>
         </Message>
         </div>
-        </center>
-        <div className="cocktail-buttons">
-          <Button onClick={this.props.generateCocktailName}>
-            Generate Cocktail Name
-          </Button>
-          <Button onClick={this.props.clearCocktailGlass}>
-            Empty Glass
-          </Button>
-          {this.props.currentCocktailName !== 'My Cocktail' &&
-            <Button onClick={this.props.saveCocktail}>
-              Save Cocktail
-            </Button>
-          }
-        </div>
+
       </div>
     )
   }
