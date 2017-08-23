@@ -39,23 +39,37 @@
   background-color: #fff;
 }
 
+.nav-button {
+  /*padding-left: 73px;*/
+  /*padding-top: 25px;*/
+}
+
+/*.nav-dropdown {
+  padding-left: inherit;
+}*/
+
 
 #top-nav {
   position: fixed;
-  left: 0;
+  /*left: 0;
   right: 0;
-  top: 0;
+  top: 0;*/
   height: 65px;
   width: 100%;
   background-color: #9cdef9;
   /*background-image: linear-gradient(bottom, #9cdef9, white);*/
   /*#A8E7FF;*/
-  text-align: center;
+  /*text-align: center;*/
   z-index: 2;
 }
 
 .logo {
-  padding-top: 5px;
+  z-index: 5;
+  /*display: inline-block;*/
+  margin-top: -33px;
+  /*position: relative;*/
+  /*margin-right: 100px;*/
+  /*position: sticky;*/
 }
 
 #left-side-nav {
@@ -109,8 +123,20 @@
   padding-top: 100px;
   padding-bottom: 30px;
   /*background-image: radial-gradient(circle, white, #b7e8fb, white);*/
-  /*background-image: linear-gradient(bottom, #f9e19a, #9cdef9, white);*/
+  /*background-image: linear-gradient(bottom, #f9e19a, #9cdef9, #f9e19a);*/
+  /*background-image: linear-gradient(top, white, #f9e19a, #9cdef9, white);*/
+  /*background-image: linear-gradient(bottom, #9cdef9, white);*/
+  background-image: linear-gradient(top, white, #9cdef9 25%, #f9e19a);
   /*z-index: auto;*/
+}
+
+.bar-card {
+  /*opacity: 0.5;*/
+  padding: 30px;
+  background-color: white;
+  border-radius: 50px;
+  /*background-image: linear-gradient(top, #9cdef9 30%, #f9e19a);*/
+
 }
 
 .assembly-line {
@@ -144,7 +170,7 @@
 }*/
 
 .cocktail-card {
-  height: 400px;
+  height: 300px;
   overflow-y: auto;
   /*background-color: orange;*/
 }
