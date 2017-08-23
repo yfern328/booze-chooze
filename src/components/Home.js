@@ -7,7 +7,9 @@ import CocktailGlass from './CocktailGlass'
 // import Cocktail from './Cocktail'
 
 // import Draggable, {DraggableCore} from 'react-draggable';
-import {Grid, Image, Message, Transition, Modal, Button, Header, Icon} from 'semantic-ui-react'
+
+import {Grid, Image, Message, Transition, Modal, Button, Header, Dropdown, Menu, Icon} from 'semantic-ui-react'
+
 // import './App.css';
 
 const OUR_API_URL = 'http://localhost:3000/api/v1'
@@ -303,7 +305,11 @@ class Home extends Component {
         </Transition>
         <div id="wrapper">
           <div id="top-nav">
+
+            <Image className="nav-button" src={'./paw-print.png'} size='mini' />
             <Image className="logo" src={'./booze-chooze-logo.png'} size='medium' centered />
+
+
           </div>
           <div id="left-side-nav">
             <IngredientsContainer
@@ -324,10 +330,45 @@ class Home extends Component {
 
           <div id="content-wrapper">
 
-          <Grid divided='vertically'>
+            <div className="bar-card">
 
-          <Grid.Row centered columns={1}>
-              <Header as='h1'>{this.state.currentCocktailName}</Header>
+            <Grid divided='vertically'>
+
+            <Grid.Row centered columns={1}>
+                <Header as='h1'>{this.state.currentCocktailName}</Header>
+            </Grid.Row>
+
+            <Grid.Row className="cocktail-grid" centered columns={2}>
+            {this.state.cocktailGlass.length > 0 &&
+                <Grid.Column>
+                  <CocktailGlass cocktailGlass={this.state.cocktailGlass} currentRecipe={this.state.currentRecipe}
+                  incrementParts={this.incrementParts}
+                  decrementParts={this.decrementParts}
+                  />
+                </Grid.Column>
+            }
+
+            {this.state.cocktailGlass.length === 0 &&
+                <Grid.Column>
+                <div className="cocktail-card">
+                <Message>
+                  <Message.Header>Get your drink on</Message.Header>
+                  <Message.List>
+                    <Message.Item>Click an ingredient to get started!</Message.Item>
+                    <Message.Item>Alcohol is on the left.</Message.Item>
+                  </Message.List>
+                </Message>
+                </div>
+                </Grid.Column>
+            }
+
+            <Grid.Column>
+              <div className='shaker'>
+                <Transition animation={'jiggle'} duration={350} visible={this.state.visible}>
+                  <Image centered width={'150px'} height={'150px'} src='./shaker.jpg'/>
+                </Transition>
+              </div>
+            </Grid.Column>
           </Grid.Row>
 
           <Grid.Row className="cocktail-grid" centered columns={2}>
@@ -376,7 +417,6 @@ class Home extends Component {
         </Grid.Row>
         }
       </Grid>
-
 
       </div>
 
