@@ -25,10 +25,10 @@ const Cocktail = (props) => (
     <Card.Content>
 
       <Feed>
-        {props.recipeLineItems.map((recipeLineItem) => {
+        {props.recipeLineItems.map((recipeLineItem, idx) => {
           return (
 
-        <Feed.Event>
+        <Feed.Event key={idx}>
           <Feed.Label image={"http://www.thecocktaildb.com/images/ingredients/Iced tea.png"} />
           <Feed.Content>
             <Feed.Label>
