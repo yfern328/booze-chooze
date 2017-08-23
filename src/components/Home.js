@@ -21,12 +21,18 @@ class Home extends Component {
       currentRecipe: [],
       currentCocktailName: 'My Cocktail',
       visible: true,
-      open: false
+      open: false,
+      secret: false
     }
   }
 
   componentDidMount() {
     this.fetchIngredients()
+    window.addEventListener('dblclick', this.secretFunction)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('dblclick', this.secretFunction)
   }
 
   incrementParts = (idx) => {
@@ -202,7 +208,23 @@ class Home extends Component {
 
   }
 
-
+  secretFunction = () => {
+    this.closeModal()
+    let audio = document.getElementById('audio')
+    if(!this.state.secret){
+      document.body.style.animation = 'App-logo-spin infinite 1s linear'
+      document.body.style.animationPlayState = 'running'
+      this.setState({
+        secret: true
+      }, () => audio.play())
+    } else {
+      document.body.style.animation = ''
+      document.body.style.animationPlayState = 'paused'
+      this.setState({
+        secret: false
+      }, () => audio.pause())
+    }
+  }
 
 
 
@@ -210,11 +232,14 @@ class Home extends Component {
   render() {
     return (
       <div>
-        {/* <CocktailsContainer /> */}
+        <audio id="audio" src={"./yakety-sax.ogg"}></audio>
         <Transition animation={'drop'} duration={500} visible={this.state.open}>
           <Modal open={this.state.open} size={'mini'} onClose={this.closeModal} closeIcon={true} dimmer={'blurring'}>
             <Modal.Header><center>Your Cocktail!</center></Modal.Header>
             <Modal.Content><center>{this.state.currentCocktailName}</center></Modal.Content>
+            {(this.state.cocktailGlass[0] !== undefined && this.state.cocktailGlass[0].name === 'Egg yolk') &&
+              <Modal.Content><center><Button onClick={this.secretFunction}>Click to go CRAZY</Button></center></Modal.Content>
+            }
           </Modal>
         </Transition>
         <div id="wrapper">
@@ -271,8 +296,6 @@ class Home extends Component {
 
             </Grid.Row>
         }
-
-
 
         <Transition animation={'jiggle'} duration={350} visible={this.state.visible}>
           <Image centered width={'150px'} height={'150px'} src='./shaker.jpg'/>
