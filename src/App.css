@@ -110,25 +110,25 @@
   padding-bottom: 30px;
   /*background-image: radial-gradient(circle, white, #b7e8fb, white);*/
   /*background-image: linear-gradient(bottom, #f9e19a, #9cdef9, white);*/
-  z-index: auto;
+  /*z-index: auto;*/
 }
 
 .assembly-line {
 }
 
 .cocktail-header-name {
-  padding-bottom: 50px;
-  position: absolute;
+  /*padding-bottom: 20px;*/
+  /*position: absolute;*/
 }
 
 .cocktail-grid {
-  padding-top: 50px;
-  padding-bottom: 30px;
+  /*padding-top: 30px;
+  padding-bottom: 30px;*/
 }
 
 .cocktail-buttons {
-  padding-top: 30px;
-  padding-bottom: 10px;
+  /*padding-top: 30px;
+  padding-bottom: 10px;*/
 }
 
 #content-wrapper background-image {
@@ -143,13 +143,14 @@
   display: none;
 }*/
 
-.card-shit {
-  height: 250px;
+.cocktail-card {
+  height: 400px;
   overflow-y: auto;
-  background-color: orange;
+  /*background-color: orange;*/
 }
 
 .shaker {
+  /*margin-left: 200px;*/
 }
 
 .figure-thing {
