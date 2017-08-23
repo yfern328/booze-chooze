@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+
 import IngredientsContainer from './components/IngredientsContainer';
 import CocktailsContainer from './components/CocktailsContainer';
 import CocktailGlass from './components/CocktailGlass'
+import Cocktail from './components/Cocktail'
+
 // import Draggable, {DraggableCore} from 'react-draggable';
 import {Button, Grid, Image, Message, Transition, Modal, Header} from 'semantic-ui-react'
 import './App.css';
@@ -25,6 +29,10 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    this.fetchIngredients()
+  }
+  
   incrementParts = (idx) => {
     const recipe = this.state.currentRecipe
     recipe[idx].parts++
@@ -55,9 +63,6 @@ class App extends Component {
     } ))
   }
 
-  componentDidMount() {
-    this.fetchIngredients()
-  }
 
   filterAlcoholicIngredients = () => {
     return this.state.ingredients.filter(ingredient => ingredient.is_alcoholic === true)
@@ -184,7 +189,6 @@ class App extends Component {
       )
     })
 
-
     let myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json')
     myHeaders.append('Accept', 'application/json')
@@ -200,31 +204,10 @@ class App extends Component {
     .then(resp => resp.json())
     .then(resp => console.log(resp))
 
-
   }
 
 
-// DRAGGABLE STUFF
 
-  handleDrag = (e, ui) => {
-    const {x, y} = this.state.deltaPosition;
-    this.setState({
-      deltaPosition: {
-        x: x + ui.deltaX,
-        y: y + ui.deltaY,
-      }
-    });
-  }
-
-  onStart = () => {
-    console.log('drag started')
-    this.setState({activeDrags: ++this.state.activeDrags});
-  }
-
-  onStop = () =>  {
-    console.log('drag stopped')
-    this.setState({activeDrags: --this.state.activeDrags});
-  }
 
 
 
@@ -285,11 +268,28 @@ class App extends Component {
               </Message>
             </Grid.Row>
         }
+
+        <Grid.Row centered>
+          <Cocktail
+            imageUrl={'http://blogs.kcrw.com/goodfood/wp-content/uploads/2013/12/los-angeles-magazine-cocktail-e1387501927847.jpg'}
+            name={'test cocktail'}
+            isAlcoholic={true}
+            recipeLineItems={[
+                                "3 parts coconut milk",
+                                "1 part Watermelon schnapps",
+                                "1 part Vermouth"
+
+                            ]}
+
+            />
+        </Grid.Row>
+
         <Transition animation={'jiggle'} duration={350} visible={this.state.visible}>
           <Image centered width={'150px'} height={'150px'} src='./shaker.jpg'/>
         </Transition>
-        </Grid>
 
+
+      </Grid>
 
         </div>
       </div>
