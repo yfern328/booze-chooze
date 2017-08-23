@@ -2,12 +2,6 @@ import React from 'react';
 import {Header, Image, Table, Button, Message} from 'semantic-ui-react';
 
 class CocktailGlass extends React.Component {
-  constructor(props) {
-    super(props)
-
-
-  }
-
 
   render() {
     return (
