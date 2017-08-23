@@ -317,13 +317,7 @@ class Home extends Component {
             }
           </div>
         </Grid.Row>
-            </Grid.Row>
         }
-
-        <Transition animation={'jiggle'} duration={350} visible={this.state.visible}>
-          <Image centered width={'150px'} height={'150px'} src='./shaker.jpg'/>
-        </Transition>
-
       </Grid>
 
 
