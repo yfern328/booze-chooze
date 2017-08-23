@@ -28,11 +28,11 @@ class Home extends Component {
 
   componentDidMount() {
     this.fetchIngredients()
-    window.addEventListener('dblclick', this.secretFunction)
+    window.addEventListener('dblclick', this.stopSecretFunction)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('dblclick', this.secretFunction)
+    window.removeEventListener('dblclick', this.stopSecretFunction)
   }
 
   incrementParts = (idx) => {
@@ -208,21 +208,25 @@ class Home extends Component {
 
   }
 
+  stopSecretFunction = () => {
+    let audio = document.getElementById('audio')
+    document.body.style.animation = ''
+    document.body.style.animationPlayState = 'paused'
+    this.setState({
+      secret: false
+    }, () => audio.pause())
+  }
+
   secretFunction = () => {
     this.closeModal()
     let audio = document.getElementById('audio')
+    audio.loop = true
     if(!this.state.secret){
       document.body.style.animation = 'App-logo-spin infinite 1s linear'
       document.body.style.animationPlayState = 'running'
       this.setState({
         secret: true
       }, () => audio.play())
-    } else {
-      document.body.style.animation = ''
-      document.body.style.animationPlayState = 'paused'
-      this.setState({
-        secret: false
-      }, () => audio.pause())
     }
   }
 
@@ -317,7 +321,7 @@ class Home extends Component {
             }
           </div>
         </Grid.Row>
-        }
+
       </Grid>
 
 
