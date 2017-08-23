@@ -7,14 +7,37 @@ import CocktailGlass from './CocktailGlass'
 // import Cocktail from './Cocktail'
 
 // import Draggable, {DraggableCore} from 'react-draggable';
-import {Grid, Image, Message, Transition, Modal} from 'semantic-ui-react'
+import {Grid, Image, Message, Transition, Modal, Button, Header, Icon} from 'semantic-ui-react'
 // import './App.css';
 
 const OUR_API_URL = 'http://localhost:3000/api/v1'
 
+
+
+const loaderButton = (
+  <Button loading>
+    Saving..
+  </Button>
+)
+
+const savedButton = (
+  <Button disabled color='green'>
+    <Icon name='checkmark' /> Saved!
+  </Button>
+)
+
+
 class Home extends Component {
   constructor() {
     super()
+
+    const regButton = (
+      <Button onClick={this.saveCocktail} color='green'>
+        Save Cocktail
+      </Button>
+    )
+
+
     this.state = {
       ingredients: [],
       cocktailGlass: [],
@@ -22,17 +45,18 @@ class Home extends Component {
       currentCocktailName: 'My Cocktail',
       visible: true,
       open: false,
-      secret: false
+      secret: false,
+      saveButtonStatus: regButton
     }
   }
 
   componentDidMount() {
     this.fetchIngredients()
-    window.addEventListener('dblclick', this.secretFunction)
+    window.addEventListener('dblclick', this.stopSecretFunction)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('dblclick', this.secretFunction)
+    window.removeEventListener('dblclick', this.stopSecretFunction)
   }
 
   incrementParts = (idx) => {
@@ -44,6 +68,18 @@ class Home extends Component {
       visible: !this.state.visible
     })
 
+  }
+
+  resetSaveButton = () => {
+    const regButton = (
+      <Button onClick={this.saveCocktail} color='green'>
+        Save Cocktail
+      </Button>
+    )
+
+    this.setState({
+      saveButtonStatus: regButton
+    })
   }
 
   decrementParts = (idx) => {
@@ -104,6 +140,7 @@ class Home extends Component {
   }
 
   generateCocktailName = () => {
+    this.resetSaveButton()
     let data = {}
     this.state.currentRecipe.forEach((item) => {
       let name = item.ingredient.name
@@ -133,6 +170,7 @@ class Home extends Component {
   }
 
   clearCocktailGlass = () => {
+    this.resetSaveButton()
     this.setState( {
       cocktailGlass: [],
       currentRecipe: [],
@@ -147,6 +185,10 @@ class Home extends Component {
   }
 
   saveCocktail = () => {
+    console.log('clicked save')
+    this.setState({
+      saveButtonStatus: loaderButton
+    })
     let data = {
       name: this.state.currentCocktailName,
       is_alcoholic: true,
@@ -204,10 +246,22 @@ class Home extends Component {
       }
     )
     .then(resp => resp.json())
-    .then(resp => console.log(resp))
+    .then(resp => this.setState({
+      saveButtonStatus: savedButton
+    }))
 
   }
 
+  stopSecretFunction = () => {
+    let audio = document.getElementById('audio')
+    if (this.state.secret) {
+      document.body.style.animation = ''
+      document.body.style.animationPlayState = 'paused'
+      this.setState({
+        secret: false
+      }, () => audio.pause())
+    }
+  }
 
   secretFunction = () => {
     this.closeModal()
@@ -232,6 +286,9 @@ class Home extends Component {
 
 
   render() {
+
+
+
     return (
       <div>
         <audio id="audio" src={"./yakety-sax.ogg"}></audio>
@@ -313,9 +370,7 @@ class Home extends Component {
               Empty Glass
             </Button>
             {this.state.currentCocktailName !== 'My Cocktail' &&
-              <Button onClick={this.saveCocktail}>
-                Save Cocktail
-              </Button>
+              this.state.saveButtonStatus
             }
           </div>
         </Grid.Row>

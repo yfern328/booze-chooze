@@ -38,7 +38,7 @@ class MyCocktails extends Component {
       .then(resp => resp.json())
 
     })
-    let promiseList = Promise.all(cocktailPromises)
+    Promise.all(cocktailPromises)
     .then((resp) => this.setState({
       cocktails: resp
     }))
@@ -50,6 +50,36 @@ class MyCocktails extends Component {
       open: false
     })
   }
+
+
+
+  deleteCocktail = (id) => {
+    let myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json')
+    myHeaders.append('Accept', 'application/json')
+
+    this.removeCocktailFromContainer(id)
+
+    fetch(`${OUR_API_URL}/cocktails/${id}`,
+      {method: 'DELETE',
+      headers: myHeaders
+    })
+    .then(resp => resp.json())
+    .then(resp => console.log(resp))
+
+
+  }
+
+  removeCocktailFromContainer = (id) => {
+    let currentCocktails = this.state.cocktails
+    let cocktailToDelete = currentCocktails.find((ck) => ck.id === id)
+    let idx = currentCocktails.indexOf(cocktailToDelete)
+    currentCocktails.splice(idx, 1)
+    this.setState({
+      cocktails: currentCocktails
+    })
+  }
+
 
   saveCocktail = () => {
     let data = {
@@ -128,18 +158,21 @@ class MyCocktails extends Component {
             <Image className="logo" src={'./my-cocktails.png'} size='medium' centered />
           </div>
 
-          <Grid id="content-wrapper">
+          <Grid id="my-cocktails-wrapper">
             <div className="assembly-line">
+              <Grid.Column>
 
               <Grid.Row >
 
                 <CocktailsContainer
                   userId={1}
                   cocktails={this.state.cocktails}
+                  deleteCocktail={this.deleteCocktail}
                 />
 
               </Grid.Row>
 
+            </Grid.Column>
             </div>
           </Grid>
 

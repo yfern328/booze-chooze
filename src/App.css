@@ -113,6 +113,24 @@
   /*z-index: auto;*/
 }
 
+#my-cocktails-wrapper {
+  margin: 65px 65px 0 0px;
+  padding: 0 30px;
+  position: fixed;
+  width: 100%;
+  overflow-y: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 90vh;
+  background-color: white;
+  padding-top: 100px;
+  padding-bottom: 30px;
+  /*background-image: radial-gradient(circle, white, #b7e8fb, white);*/
+  /*background-image: linear-gradient(bottom, #f9e19a, #9cdef9, white);*/
+  /*z-index: auto;*/
+}
+
 .assembly-line {
 }
 
@@ -144,7 +162,7 @@
 }*/
 
 .cocktail-card {
-  height: 400px;
+  height: 300px;
   overflow-y: auto;
   /*background-color: orange;*/
 }
