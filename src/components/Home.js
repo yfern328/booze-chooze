@@ -371,43 +371,12 @@ class Home extends Component {
             </Grid.Column>
           </Grid.Row>
 
-          <Grid.Row className="cocktail-grid" centered columns={2}>
-          {this.state.cocktailGlass.length > 0 &&
-              <Grid.Column>
-                <CocktailGlass cocktailGlass={this.state.cocktailGlass} currentRecipe={this.state.currentRecipe}
-                incrementParts={this.incrementParts}
-                decrementParts={this.decrementParts}
-                />
-              </Grid.Column>
-          }
-
-          {this.state.cocktailGlass.length === 0 &&
-              <Grid.Column>
-              <Message>
-                <Message.Header>Get your drink on</Message.Header>
-                <Message.List>
-                  <Message.Item>Click an ingredient to get started!</Message.Item>
-                  <Message.Item>Alcohol is on the left.</Message.Item>
-                </Message.List>
-              </Message>
-              </Grid.Column>
-          }
-
-          <Grid.Column>
-            <div className='shaker'>
-              <Transition animation={'jiggle'} duration={350} visible={this.state.visible}>
-                <Image centered width={'150px'} height={'150px'} src='./shaker.jpg'/>
-              </Transition>
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-
         <Grid.Row centered columns={1}>
           <div className="cocktail-buttons">
-            <Button onClick={this.generateCocktailName}>
+            <Button color='green' onClick={this.generateCocktailName}>
               Generate Cocktail Name
             </Button>
-            <Button onClick={this.clearCocktailGlass}>
+            <Button color='green' onClick={this.clearCocktailGlass}>
               Empty Glass
             </Button>
             {this.state.currentCocktailName !== 'My Cocktail' &&
@@ -415,9 +384,9 @@ class Home extends Component {
             }
           </div>
         </Grid.Row>
-        }
       </Grid>
 
+      </div>
       </div>
 
         </div>
