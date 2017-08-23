@@ -240,7 +240,7 @@ class App extends Component {
         </Transition>
         <div id="wrapper">
           <div id="top-nav">
-            <Image src={'./booze-chooze-logo.png'} size='medium' centered />
+            <Image className="logo" src={'./booze-chooze-logo.png'} size='medium' centered />
           </div>
           <div id="left-side-nav">
             <IngredientsContainer
@@ -258,11 +258,16 @@ class App extends Component {
                 />
               </div>
           </div>
-          <Grid id="content-wrapper" centered columns={1}>
-          <Header as='h1'>{this.state.currentCocktailName}</Header>
+          <Grid id="content-wrapper">
+            <div className="assembly-line">
 
+            <center>
+              <div className="cocktail-header-name">
+                <h1>{this.state.currentCocktailName}</h1>
+              </div>
+            </center>
           {this.state.cocktailGlass.length > 0 &&
-            <Grid.Row centered>
+            <Grid.Row className="cocktail-grid" centered>
             <CocktailGlass cocktailGlass={this.state.cocktailGlass} currentRecipe={this.state.currentRecipe}
             incrementParts={this.incrementParts}
             decrementParts={this.decrementParts}
@@ -275,7 +280,8 @@ class App extends Component {
             </Grid.Row>
         }
         {this.state.cocktailGlass.length === 0 &&
-            <Grid.Row centered>
+            <Grid.Row className="cocktail-grid" centered>
+
               <Message>
                 <Message.Header>Get your drink on</Message.Header>
                 <Message.List>
@@ -283,11 +289,13 @@ class App extends Component {
                   <Message.Item>Alcohol is on the left.</Message.Item>
                 </Message.List>
               </Message>
+
             </Grid.Row>
         }
         <Transition animation={'jiggle'} duration={350} visible={this.state.visible}>
           <Image centered width={'150px'} height={'150px'} src='./shaker.jpg'/>
         </Transition>
+        </div>
         </Grid>
 
 
