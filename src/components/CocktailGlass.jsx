@@ -1,5 +1,5 @@
 import React from 'react';
-import {Header, Image, Table, Button} from 'semantic-ui-react';
+import {Header, Image, Table, Button, Message} from 'semantic-ui-react';
 
 class CocktailGlass extends React.Component {
   constructor(props) {
@@ -13,6 +13,8 @@ class CocktailGlass extends React.Component {
     return (
       <div>
         <center>
+        <div className="card-shit">
+        <Message>
         <Table basic='very' celled collapsing>
 
           <Table.Header>
@@ -47,18 +49,22 @@ class CocktailGlass extends React.Component {
             })}
           </Table.Body>
         </Table>
+        </Message>
+        </div>
         </center>
-        <Button onClick={this.props.generateCocktailName}>
-          Generate Cocktail Name
-        </Button>
-        <Button onClick={this.props.clearCocktailGlass}>
-          Empty Glass
-        </Button>
-        {this.props.currentCocktailName !== 'My Cocktail' &&
-          <Button onClick={this.props.saveCocktail}>
-            Save Cocktail
+        <div className="cocktail-buttons">
+          <Button onClick={this.props.generateCocktailName}>
+            Generate Cocktail Name
           </Button>
-        }
+          <Button onClick={this.props.clearCocktailGlass}>
+            Empty Glass
+          </Button>
+          {this.props.currentCocktailName !== 'My Cocktail' &&
+            <Button onClick={this.props.saveCocktail}>
+              Save Cocktail
+            </Button>
+          }
+        </div>
       </div>
     )
   }

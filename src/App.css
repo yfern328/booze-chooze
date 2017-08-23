@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -46,9 +47,15 @@
   top: 0;
   height: 65px;
   width: 100%;
-  background-color: #9CDEF9;
+  background-color: #9cdef9;
+  /*background-image: linear-gradient(bottom, #9cdef9, white);*/
   /*#A8E7FF;*/
   text-align: center;
+  z-index: 2;
+}
+
+.logo {
+  padding-top: 5px;
 }
 
 #left-side-nav {
@@ -63,6 +70,8 @@
   text-align: center;
   padding-top: 10px;
   padding-bottom: 10px;
+  /*background-image: radial-gradient(circle, white, #9CDEF9);*/
+  background-image: linear-gradient(bottom, #f9e19a, #9cdef9);
 }
 
 #right-side-nav > div {
@@ -84,33 +93,63 @@
   padding-bottom: 10px;
   /*direction: rtl;*/
   transform: scaleX(-1);
+  background-image: linear-gradient(bottom, #f9e19a, #9cdef9);
 }
 
 #content-wrapper {
-  margin: 160px 0 0 250px;
+  margin: 65px 0 0 250px;
   margin-right: 250px;
   padding: 0 30px;
-  overflow-y: auto;
   position: fixed;
   left: 0;
   right: 0;
   top: 0;
   height: 90vh;
   background-color: white;
-  padding-top: 30px;
+  padding-top: 100px;
   padding-bottom: 30px;
+  /*background-image: radial-gradient(circle, white, #b7e8fb, white);*/
+  /*background-image: linear-gradient(bottom, #f9e19a, #9cdef9, white);*/
+  z-index: auto;
+}
+
+.assembly-line {
+}
+
+.cocktail-header-name {
+  padding-bottom: 50px;
+  position: absolute;
+}
+
+.cocktail-grid {
+  padding-top: 50px;
+  padding-bottom: 30px;
+}
+
+.cocktail-buttons {
+  padding-top: 30px;
+  padding-bottom: 10px;
+}
+
+#content-wrapper background-image {
+  margin-top: 100px;
 }
 
 #right-side-nav::-webkit-scrollbar {
   /*direction: rtl;*/
 }
 
-#content-wrapper::-webkit-scrollbar {
+/*.card-shit::-webkit-scrollbar {
   display: none;
+}*/
+
+.card-shit {
+  height: 250px;
+  overflow-y: auto;
+  background-color: orange;
 }
 
 .shaker {
-  padding-top: 10px;
 }
 
 .figure-thing {
@@ -118,7 +157,8 @@
 }
 
 .ingredient {
-  background: white !important;
+  /*background: white !important;*/
+  background-image: radial-gradient(circle, white, #9CDEF9);
 }
 
 .ingredient-flip {
@@ -126,5 +166,5 @@
 }
 
 .booze-filter {
-  
+
 }
