@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-// import { BrowserRouter as Router, Route } from 'react-router-dom'
+// import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 // import IngredientsContainer from './IngredientsContainer';
 import CocktailsContainer from './CocktailsContainer';
@@ -159,7 +159,8 @@ class MyCocktails extends Component {
 
         <div id="wrapper">
           <div id="top-nav">
-            <Image className="logo" src={'./my-cocktails.png'} size='medium' centered />
+            <Image className="cocktail-nav-button" src={'./paw-print.png'} size='mini' href={'/'} />
+            <Image className="cocktail-logo" src={'./my-cocktails.png'} size='medium' centered />
           </div>
 
           <Grid id="my-cocktails-wrapper">

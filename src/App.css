@@ -72,6 +72,10 @@
   /*position: sticky;*/
 }
 
+.cocktail-logo {
+  margin-top: -27px;
+}
+
 #left-side-nav {
   position: fixed;
   width: 250px;

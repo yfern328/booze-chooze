@@ -142,26 +142,30 @@ class Home extends Component {
   }
 
   generateCocktailName = () => {
-    this.resetSaveButton()
-    let data = {}
-    this.state.currentRecipe.forEach((item) => {
-      let name = item.ingredient.name
-      data[name] = item.parts
-    })
-    let dataToSend = JSON.stringify({recipe: data});
+    if(this.state.cocktailGlass.length === 0){
 
-    let myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/json')
-    myHeaders.append('Accept', 'application/json')
+    } else {
+      this.resetSaveButton()
+      let data = {}
+      this.state.currentRecipe.forEach((item) => {
+        let name = item.ingredient.name
+        data[name] = item.parts
+      })
+      let dataToSend = JSON.stringify({recipe: data});
 
-    fetch(`${OUR_API_URL}/cocktails/generate`,
-    {method: 'POST',
-    headers: myHeaders,
-    body: dataToSend
-  }
-  ).then(resp => resp.json())
-  .then(resp => this.updateCocktailName(resp))
+      let myHeaders = new Headers();
+      myHeaders.append('Content-Type', 'application/json')
+      myHeaders.append('Accept', 'application/json')
 
+      fetch(`${OUR_API_URL}/cocktails/generate`,
+        {
+          method: 'POST',
+          headers: myHeaders,
+          body: dataToSend
+        }
+      ).then(resp => resp.json())
+      .then(resp => this.updateCocktailName(resp))
+    }
   }
 
   updateCocktailName = (resp) => {
@@ -306,7 +310,7 @@ class Home extends Component {
         <div id="wrapper">
           <div id="top-nav">
 
-            <Image className="nav-button" src={'./paw-print.png'} size='mini' />
+            <Image className="nav-button" src={'./paw-print.png'} size='mini' href='/mycocktails'/>
             <Image className="logo" src={'./booze-chooze-logo.png'} size='medium' centered />
 
 
