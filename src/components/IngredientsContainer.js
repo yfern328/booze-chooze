@@ -1,6 +1,6 @@
 import React from 'react';
 import Ingredient from './Ingredient';
-import { Item, Input, Icon } from 'semantic-ui-react';
+import { Item, Input } from 'semantic-ui-react';
 
 
 class IngredientsContainer extends React.Component {

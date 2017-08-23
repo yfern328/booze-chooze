@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 // import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import IngredientsContainer from './IngredientsContainer';
-import CocktailsContainer from './CocktailsContainer';
+// import CocktailsContainer from './CocktailsContainer';
 import CocktailGlass from './CocktailGlass'
-import Cocktail from './Cocktail'
+// import Cocktail from './Cocktail'
 
 // import Draggable, {DraggableCore} from 'react-draggable';
-import {Button, Grid, Image, Message, Transition, Modal, Header} from 'semantic-ui-react'
+import {Grid, Image, Message, Transition, Modal} from 'semantic-ui-react'
 // import './App.css';
 
 const OUR_API_URL = 'http://localhost:3000/api/v1'
@@ -201,11 +201,6 @@ class Home extends Component {
     .then(resp => console.log(resp))
 
   }
-
-
-
-
-
 
   render() {
     return (
