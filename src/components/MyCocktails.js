@@ -71,9 +71,13 @@ class MyCocktails extends Component {
   }
 
   removeCocktailFromContainer = (id) => {
+    console.log('id: ', id)
     let currentCocktails = this.state.cocktails
-    let cocktailToDelete = currentCocktails.find((ck) => ck.id === id)
+    console.log(currentCocktails)
+    let cocktailToDelete = currentCocktails.find((ck) => ck.cocktail.id === id)
+    console.log(cocktailToDelete)
     let idx = currentCocktails.indexOf(cocktailToDelete)
+    console.log('idx: ', idx)
     currentCocktails.splice(idx, 1)
     this.setState({
       cocktails: currentCocktails
