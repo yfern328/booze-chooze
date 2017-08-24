@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import Home from './components/Home';
 import MyCocktails from './components/MyCocktails';
+import Login from './components/Login';
 
 
 // import {Button, Grid, Image, Message, Transition, Modal, Header} from 'semantic-ui-react'
@@ -17,6 +18,7 @@ class App extends Component {
 
 <Router>
   <div>
+    <Route exact path="/login" component={Login} />
     <Route exact path="/" component={Home} />
     <Route exact path="/mycocktails" component={MyCocktails} />
   </div>

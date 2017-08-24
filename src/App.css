@@ -48,6 +48,14 @@
   padding-left: inherit;
 }*/
 
+.login-bar {
+  z-index: 5;
+  padding-top: 60vh;
+  width: 70%;
+  padding-left: 40vw;
+
+}
+
 
 #top-nav {
   position: fixed;
@@ -61,6 +69,19 @@
   /*#A8E7FF;*/
   /*text-align: center;*/
   z-index: 2;
+}
+
+#welcome-nav {
+  height: 40vh;
+  position: fixed;
+  width: 100%;
+  background-color: #9cdef9;
+  z-index: 2;
+}
+
+.welcome-logo {
+  z-index: 5;
+  margin-top: -33px;
 }
 
 .logo {
